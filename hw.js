@@ -1,16 +1,12 @@
 $(document).ready(function() {
-
     var animals = [
       "dog", "cat", "bunnies", "rodent", "skunk", "goldfish",
       "bird", "ferret", "turtle", "sugar glider", "chinchilla",
       "pig", "pomeranian", "naked mole-rat", "goat", "rooster",
         "hog", "serval", "salamander", "toad"
     ];
-  
-    // function to make buttons and add to page
     function populateButtons(arrayToUse, classToAdd, areaToAddTo) {
       $(areaToAddTo).empty();
-  
       for (var i = 0; i < arrayToUse.length; i++) {
         var a = $("<button>");
         a.addClass(classToAdd);
@@ -18,9 +14,7 @@ $(document).ready(function() {
         a.text(arrayToUse[i]);
         $(areaToAddTo).append(a);
       }
-  
     }
-  
     $(document).on("click", ".animal-button", function() {
       $("#animals").empty();
       $(".animal-button").removeClass("active");
@@ -28,7 +22,6 @@ $(document).ready(function() {
   
       var type = $(this).attr("data-type");
       var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + type + "&api_key=YwBdKikqiriZtIl0GBoTUDvMppOUnn1m";
-  
       $.ajax({
         url: queryURL,
         method: "GET"
@@ -52,19 +45,14 @@ $(document).ready(function() {
             animalImage.attr("data-animate", animated);
             animalImage.attr("data-state", "still");
             animalImage.addClass("animal-image");
-  
             animalDiv.append(p);
             animalDiv.append(animalImage);
-  
-            $("#animals").append(animalDiv);
+              $("#animals").append(animalDiv);
           }
         });
     });
-  
     $(document).on("click", ".animal-image", function() {
-  
       var state = $(this).attr("data-state");
-  
       if (state === "still") {
         $(this).attr("src", $(this).attr("data-animate"));
         $(this).attr("data-state", "animate");
@@ -74,19 +62,14 @@ $(document).ready(function() {
         $(this).attr("data-state", "still");
       }
     });
-  
     $("#add-animal").on("click", function(event) {
       event.preventDefault();
       var newAnimal = $("input").eq(0).val();
-  
       if (newAnimal.length > 2) {
         animals.push(newAnimal);
       }
-  
       populateButtons(animals, "animal-button", "#animal-buttons");
-  
     });
-  
     populateButtons(animals, "animal-button", "#animal-buttons");
   });
   
